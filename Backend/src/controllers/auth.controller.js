@@ -143,7 +143,10 @@ res.cookie("token",token).status(200).json({
 }
 
 const logoutFoodPartner = async (req, res) =>{
-  
+  res.clearCookie("token")
+  res.status(200).json({
+    message:"FoodPartner loggedOut Successfully"
+  })
 }
 
 

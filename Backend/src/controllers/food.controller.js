@@ -3,6 +3,12 @@ const storageService = require("../services/storage.service");
 const { v4: uuid } = require("uuid");
 
 const createFood = async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({
+      message: "No file uploaded. Please include a file with the field name 'video'.",
+    });
+  }
+
   const fileUploadResult = await storageService.uploadFile(
     req.file.buffer,
     uuid()
@@ -17,7 +23,7 @@ const createFood = async (req, res) => {
   res.status(201).json({
     message:"food created successfully",
     food: foodItem
-  })
+  });
 };
 
 async function getFoodItem(req,res) {

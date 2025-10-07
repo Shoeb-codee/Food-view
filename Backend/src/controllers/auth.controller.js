@@ -78,8 +78,8 @@ const logOut = async (req,res) => {
 }
 
 const registerFoodPartner = async (req,res) =>{
-  const {name, email, password} = req.body;
-  if(!name|| !email || !password){
+  const {name, email, password, address, contactName, phone} = req.body;
+  if(!name|| !email || !password || !address || !phone || !contactName){
     console.log("Items missing")
   }
 
@@ -93,6 +93,9 @@ const registerFoodPartner = async (req,res) =>{
 
   const foodPartner = await FoodPartner.create({
     name,
+    contactName,
+    phone,
+    address,
     email,
     password: hashedPassword
   })
@@ -105,7 +108,8 @@ const registerFoodPartner = async (req,res) =>{
     message:"Food Partner registered successfully",
     foodPartner:{
       id: foodPartner._id,
-      name: foodPartner.name
+      name: foodPartner.name,
+      address: foodPartner.address
     }
   })
 }
